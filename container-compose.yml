@@ -20,6 +20,7 @@ services:
       APP_DOMAIN: dev.alpelectronix.com
       SECRET_KEY_BASE: "s9485kfjskha-*09487bv+#2>|"
       APP_PROTOCOL: "https://"
+      HONEYBADGER_API_KEY: hbp_D0NJu9fx2RwNu7U4Tx2otdZfCUaYJt2vY0YQ
     volumes:
       - .:/opt/apps/forem:z
     # entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "file:///opt/apps/forem/vendor/bundle/.bundle_finished", "-timeout", "2700s"]
