@@ -18,6 +18,7 @@ services:
       RACK_TIMEOUT_SERVICE_TIMEOUT: 10000
       STATEMENT_TIMEOUT: 10000
       APP_DOMAIN: dev.alpelectronix.com
+      SECRET_KEY_BASE: "s9485kfjskha-*09487bv+#2>|"
     volumes:
       - .:/opt/apps/forem:z
     # entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "file:///opt/apps/forem/vendor/bundle/.bundle_finished", "-timeout", "2700s"]
