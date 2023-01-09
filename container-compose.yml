@@ -117,7 +117,7 @@ services:
       - db_data:/var/lib/postgresql/data:Z
 
   redis:
-    image: 6.2.8-alpine
+    image: redis:6.2-alpine
     container_name: forem_redis
     ports:
       - "6380:6379"
