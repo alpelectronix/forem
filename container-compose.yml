@@ -52,7 +52,7 @@ services:
       DATABASE_URL: postgresql://forem:forem@db:5432/forem_db
     volumes:
        - forem:/home/forem:z
-    command: [ "bash", "-c", "yarn install --prod"]
+    command: [ "bash", "-c", "yarn install"]
 
   webpacker:
     image: quay.io/forem/forem:latest
