@@ -68,7 +68,7 @@ services:
     volumes:
        - forem:/home/forem:z
     # entrypoint: ["dockerize", "-wait", "file:///opt/apps/forem/node_modules/.bin/webpack-dev-server", "-timeout", "300s"]
-    command: ["./bin/webpack-server"]
+    command: ["./bin/webpack-dev-server"]
 
   seed:
     image: quay.io/forem/forem:latest
