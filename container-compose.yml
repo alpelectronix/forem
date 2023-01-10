@@ -1,7 +1,7 @@
 version: "3"
 services:
   rails:
-    image: quay.io/forem/forem:latest
+    image: quay.io/forem/forem:development
     container_name: forem_rails
     ports:
       - "3000:3000"
@@ -26,10 +26,10 @@ services:
       FOREM_OWNER_SECRET: "treop90234-**0043274+^3'+fdSğsdü,"
     volumes:
       - forem:/home/forem:z
-    # entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "file:///opt/apps/forem/vendor/bundle/.bundle_finished", "-timeout", "2700s"]
+    entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "file:///opt/apps/forem/vendor/bundle/.bundle_finished", "-timeout", "2700s"]
     command: [ "bash", "-c", "./scripts/entrypoint.sh bootstrap && bundle exec rails server -b 0.0.0.0 -p 3000"]
   bundle:
-    image: quay.io/forem/forem:latest
+    image: quay.io/forem/forem:development
     container_name: forem_bundle
     environment:
       RAILS_ENV: production
@@ -42,7 +42,7 @@ services:
     command: ["./scripts/bundle.sh"]
 
   yarn:
-    image: quay.io/forem/forem:latest
+    image: quay.io/forem/forem:development
     container_name: forem_yarn
     environment:
       RAILS_ENV: production
@@ -52,10 +52,10 @@ services:
       DATABASE_URL: postgresql://forem:forem@db:5432/forem_db
     volumes:
        - forem:/home/forem:z
-    command: [ "bash", "-c", "yarn install"]
+    command: [ "bash", "-c", "yarn install --prod"]
 
   webpacker:
-    image: quay.io/forem/forem:latest
+    image: quay.io/forem/forem:development
     container_name: forem_webpacker
     depends_on:
       - rails
@@ -68,11 +68,11 @@ services:
       DATABASE_URL: postgresql://forem:forem@db:5432/forem_db
     volumes:
        - forem:/home/forem:z
-    # entrypoint: ["dockerize", "-wait", "file:///opt/apps/forem/node_modules/.bin/webpack-dev-server", "-timeout", "300s"]
-    command: ["./bin/webpack-dev-server"]
+    entrypoint: ["dockerize", "-wait", "file:///opt/apps/forem/node_modules/.bin/webpack-dev-server", "-timeout", "300s"]
+    command: ["./bin/webpack-server"]
 
   seed:
-    image: quay.io/forem/forem:latest
+    image: quay.io/forem/forem:development
     container_name: forem_seed
     depends_on:
       - rails
@@ -86,11 +86,11 @@ services:
       DATABASE_URL: postgresql://forem:forem@db:5432/forem_db
     volumes:
       - forem:/home/forem:z
-    # entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "http://rails:3000", "-timeout", "300s"]
+    entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "http://rails:3000", "-timeout", "300s"]
     command: ["bundle", "exec", "rake","db:seed"]
 
   sidekiq:
-    image: quay.io/forem/forem:latest
+    image: quay.io/forem/forem:development
     container_name: forem_sidekiq
     depends_on:
       - rails
@@ -104,7 +104,7 @@ services:
       DATABASE_URL: postgresql://forem:forem@db:5432/forem_db
     volumes:
       - forem:/home/forem:z
-    # entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "http://rails:3000", "-timeout", "300s"]
+    entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait", "http://rails:3000", "-timeout", "300s"]
     command: ["bundle", "exec", "sidekiq","-c","2"]
 
   db:
