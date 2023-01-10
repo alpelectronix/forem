@@ -23,6 +23,7 @@ services:
       SECRET_KEY_BASE: "s9485kfjskha-*09487bv+#2>|"
       APP_PROTOCOL: "https://"
       HONEYBADGER_API_KEY: hbp_D0NJu9fx2RwNu7U4Tx2otdZfCUaYJt2vY0YQ
+      HONEYBADGER_JS_API_KEY: hbp_D0NJu9fx2RwNu7U4Tx2otdZfCUaYJt2vY0YQ
       FOREM_OWNER_SECRET: "treop90234-**0043274+^3'+fdSğsdü,"
     volumes:
       - forem:/opt/apps/forem:z
